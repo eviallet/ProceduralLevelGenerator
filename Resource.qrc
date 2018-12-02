@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/tiles">
+        <file>res/ground_flat.png</file>
+        <file>res/ground_cave_gnd.png</file>
+        <file>res/ground_cave_gnd_down.png</file>
+        <file>res/ground_cave_gnd_left.png</file>
+        <file>res/ground_cave_gnd_right.png</file>
+        <file>res/ground_cave_gnd_up.png</file>
+    </qresource>
+    <qresource prefix="/enemies"/>
+    <qresource prefix="/blocks">
+        <file>res/block_qm.png</file>
+        <file>res/coin.png</file>
+    </qresource>
+    <qresource prefix="/props">
+        <file>res/flag.png</file>
+        <file>res/pipe.png</file>
+        <file>res/sign.png</file>
+    </qresource>
+</RCC>
