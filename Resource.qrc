@@ -1,20 +1,35 @@
 <RCC>
-    <qresource prefix="/tiles">
-        <file>res/ground_flat.png</file>
-        <file>res/ground_cave_gnd.png</file>
-        <file>res/ground_cave_gnd_down.png</file>
-        <file>res/ground_cave_gnd_left.png</file>
-        <file>res/ground_cave_gnd_right.png</file>
-        <file>res/ground_cave_gnd_up.png</file>
+    <qresource prefix="/tiles/underground">
+        <file>res/underground/ground_down.png</file>
+        <file>res/underground/ground_gnd.png</file>
+        <file>res/underground/ground_left.png</file>
+        <file>res/underground/ground_right.png</file>
+        <file>res/underground/ground_up.png</file>
     </qresource>
     <qresource prefix="/enemies"/>
     <qresource prefix="/blocks">
         <file>res/block_qm.png</file>
-        <file>res/coin.png</file>
+        <file>res/block_block.png</file>
     </qresource>
     <qresource prefix="/props">
-        <file>res/flag.png</file>
-        <file>res/pipe.png</file>
-        <file>res/sign.png</file>
+        <file>res/prop_bush.png</file>
+        <file>res/prop_sign.png</file>
+    </qresource>
+    <qresource prefix="/bkg">
+        <file>res/bkg_aerial.png</file>
+    </qresource>
+    <qresource prefix="/objects">
+        <file>res/object_coin.png</file>
+        <file>res/object_flag.png</file>
+        <file>res/objectpipe_.png</file>
+    </qresource>
+    <qresource prefix="/tiles/overworld">
+        <file>res/overworld/ground_above_left.png</file>
+        <file>res/overworld/ground_above_right.png</file>
+        <file>res/overworld/ground_above_up.png</file>
+        <file>res/overworld/ground_above_up_left.png</file>
+        <file>res/overworld/ground_above_up_right.png</file>
+        <file>res/overworld/ground_gnd.png</file>
+        <file>res/overworld/ground_up.png</file>
     </qresource>
 </RCC>

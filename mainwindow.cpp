@@ -31,13 +31,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 void MainWindow::generate() {
 	Map *map = new Map(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	Generator::randomize(map, (MapType)ui->comboBox->currentIndex());
+	QPalette p = _table->palette();
+	switch ((MapType)ui->comboBox->currentIndex()) {
+	case OVERWORLD:
+		Overworld(map).generate();;
+		p.setBrush(QPalette::Background, QPixmap(":/res/bkg/bkg_aerial.png"));
+		break;
+	case UNDERGROUND:
+		Underground(map).generate();
+		break;
+	}
+	_table->setPalette(p);
+	
 
 	// Applying colors and icons
 	for (int y = 0; y < map->getHeight(); y++) {
 		for (int x = 0; x < map->getWidth(); x++) {
 			QTableWidgetItem *item = new QTableWidgetItem;
-			item->setData(Qt::BackgroundRole, QBrush(QPixmap(map->getTile(x, y).getIcon())));
+			item->setData(Qt::BackgroundRole, QBrush(QPixmap(map->getTile(x, y).getIcon(ui->comboBox->currentIndex()))));
 			_table->setItem(y, x, item);
 		}
 	}

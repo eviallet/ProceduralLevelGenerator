@@ -8,26 +8,41 @@ namespace Tiles {
 	enum Types {
 		NONE,
 		GroundType=1000,
-		PropType=2000
+		PropType=2000,
+		BlockType=3000,
+		ObjectType=4000
 	};
 	
 	enum Ground {
 		FIRST_GROUND = GroundType,
-		FLAT = FIRST_GROUND,
-		CAVE_GND,
-		CAVE_GND_LEFT,
-		CAVE_GND_RIGHT,
-		CAVE_GND_UP,
-		CAVE_GND_DOWN,
+		GND = FIRST_GROUND,
+		UP,
+		LEFT,
+		RIGHT,
+		DOWN,
 		INVALID_GROUND
 	};
 	
 	enum Props {
 		FIRST_PROP = PropType,
-		FLAG = FIRST_PROP,
-		BUSH,
+		BUSH = FIRST_PROP,
 		SIGN,
 		INVALID_PROP
+	};
+
+	enum Blocks {
+		FIRST_BLOCK = BlockType,
+		QUESTION = FIRST_BLOCK,
+		BRICK,
+		INVALID_BLOCK
+	};
+	
+	enum Objects {
+		FIRST_OBJECT = ObjectType,
+		COIN = FIRST_OBJECT,
+		FLAG,
+		PIPE,		
+		INVALID_OBJECT
 	};
 };
 
@@ -38,7 +53,8 @@ public:
 	Tile(int type = Tiles::Types::NONE);
 	void setType(int type);
 	int getType() const;
-	QPixmap getIcon() const;
+	QPixmap getIcon(int mapType) const;
+	bool isGround();
 	static bool isGround(int type);
 private:
 	int _type;

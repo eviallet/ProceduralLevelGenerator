@@ -1,53 +1,26 @@
-#include "generator.h"
+#include "Underground.h"
 
-const int Generator::DIRECTIONS[][2] = { 
-	{0,-1}, // LEFT
-	{0,1},	// RIGHT
-	{-1,0},	// UP
-	{1,0}	// DOWN
-};
-
-
-void Generator::randomize(Map *map, MapType type) {
-    switch(type) {
-    case OVERWORLD:
-		generateOverworld(map);
-        break;
-    case UNDERGROUND:
-		generateUnderground(map, 
-			75, // nbTunnels
-			9	// maxLength
-		);
-        break;
-    }
+Underground::Underground(Map *map) : Generator(map) {
+	
 }
 
-void Generator::generateOverworld(Map *map) {
-	// int levelLength = DEFAULT_WIDTH;
-	
-	for (int x = 0; x < map->getWidth(); x++)
-		map->setTile(x, map->getHeight() - 1, Tiles::Ground::FLAT);
-	
-	map->setTile(2, map->getHeight() - 2, Tiles::Props::SIGN);
-	map->setTile(map->getWidth() - 2, map->getHeight() - 2, Tiles::Props::FLAG);
-}
 
-void Generator::generateUnderground(Map *map, int nbTunnels, int maxLength) {
-    // hold the current and previous direction index, ie 0 for LEFT, 1 for RIGHT...
-    int curDirIndex, prevDirIndex = rand() % 4;
-    // start from a random point on the map ; it must be included in [1;width-1]
-    int curPoint[] = { 
-		(int)floor(percent()*(map->getHeight()-2))+1,	// X
-		(int)floor(percent()*(map->getWidth()-2))+1		// Y
+void Underground::generate() {
+	// hold the current and previous direction index, ie 0 for LEFT, 1 for RIGHT...
+	int curDirIndex, prevDirIndex = rand() % 4;
+	// start from a random point on the map ; it must be included in [1;width-1]
+	int curPoint[] = {
+		(int)floor(percent()*(map->getHeight() - 2)) + 1,	// X
+		(int)floor(percent()*(map->getWidth() - 2)) + 1		// Y
 	};
 
-	map->fill(Tiles::Ground::CAVE_GND);
-	
+	map->fill(Tiles::Ground::GND);
+
 	// ensure that the map is long enough
 	int leftMost, rightMost;
 	do {
 		// will draw %nbTunnels% tunnels.
-		for (int i = 0; i < nbTunnels; i++) {
+		for (int i = 0; i < NB_TUNNELS; i++) {
 			// choose a random direction, not the same nor the opposite as the previous one (ie if previous was LEFT, we shall not go RIGHT)
 			do {
 				curDirIndex = rand() % 4;
@@ -56,7 +29,7 @@ void Generator::generateUnderground(Map *map, int nbTunnels, int maxLength) {
 				(DIRECTIONS[curDirIndex][X] == -DIRECTIONS[prevDirIndex][X] && DIRECTIONS[curDirIndex][Y] == -DIRECTIONS[prevDirIndex][Y]));
 			prevDirIndex = curDirIndex;
 			// choose a random size for this tunnel
-			int tunnelSize = (int)ceil(percent()*maxLength);
+			int tunnelSize = (int)ceil(percent()*MAX_LENGTH);
 			for (int j = 0; j < tunnelSize; j++) {
 				// we first have to check if, going in our direction, we won't encounter any border of the map, stopping the drawing in that case.
 				int futurePoint[2];
@@ -94,7 +67,7 @@ void Generator::generateUnderground(Map *map, int nbTunnels, int maxLength) {
 			}
 			else {
 				y++;
-				if (y == map->getHeight()-1) {
+				if (y == map->getHeight() - 1) {
 					y = 0;
 					x--;
 				}
@@ -109,7 +82,7 @@ void Generator::generateUnderground(Map *map, int nbTunnels, int maxLength) {
 		for (int x = 1; x < map->getWidth(); x++) {
 			if (Tile::isGround(map->getTile(x, y).getType())) {
 				if (map->getTile(x, y) != map->getTile(x - 1, y))
-					map->setTile(x, y, Tiles::Ground::CAVE_GND_LEFT);
+					map->setTile(x, y, Tiles::Ground::LEFT);
 			}
 		}
 	}
@@ -117,7 +90,7 @@ void Generator::generateUnderground(Map *map, int nbTunnels, int maxLength) {
 		for (int x = 0; x < map->getWidth() - 1; x++) {
 			if (Tile::isGround(map->getTile(x, y).getType())) {
 				if (map->getTile(x, y) != map->getTile(x + 1, y))
-					map->setTile(x, y, Tiles::Ground::CAVE_GND_RIGHT);
+					map->setTile(x, y, Tiles::Ground::RIGHT);
 			}
 		}
 	}
@@ -125,7 +98,7 @@ void Generator::generateUnderground(Map *map, int nbTunnels, int maxLength) {
 		for (int x = 0; x < map->getWidth(); x++) {
 			if (Tile::isGround(map->getTile(x, y).getType())) {
 				if (map->getTile(x, y) != map->getTile(x, y + 1))
-					map->setTile(x, y, Tiles::Ground::CAVE_GND_DOWN);
+					map->setTile(x, y, Tiles::Ground::DOWN);
 			}
 		}
 	}
@@ -133,19 +106,10 @@ void Generator::generateUnderground(Map *map, int nbTunnels, int maxLength) {
 		for (int x = 0; x < map->getWidth(); x++) {
 			if (Tile::isGround(map->getTile(x, y).getType())) {
 				if (map->getTile(x, y) != map->getTile(x, y - 1))
-					map->setTile(x, y, Tiles::Ground::CAVE_GND_UP);
+					map->setTile(x, y, Tiles::Ground::UP);
 			}
 		}
 	}
-				
+
 }
 
-void Generator::placeStructures(Map *map) {}
-void Generator::placeCollectibles(Map *map) {}
-void Generator::populate(Map *map) {}
-void Generator::placeProps(Map *map) {}
-
-// Simply returns a percentage
-double Generator::percent() {
-	return (double)rand() / RAND_MAX;
-}

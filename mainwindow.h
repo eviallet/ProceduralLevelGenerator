@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include "Generator/generator.h"
+#include "overworld.h"
+#include "underground.h"
 #include "tile.h"
 
 constexpr auto DEFAULT_WIDTH = 65;

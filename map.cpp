@@ -29,3 +29,10 @@ int Map::getWidth() const {
 int Map::getHeight() const {
     return _height;
 }
+
+int Map::getMapGroundHeight(int x) {
+	for (int y = _height - 1; y >= 0; y--)
+		if (!getTile(x, y).isGround())
+			return y;
+	return -1;
+}
