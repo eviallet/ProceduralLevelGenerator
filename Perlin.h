@@ -18,20 +18,32 @@ constexpr double MAX_Z = 1.0;
 
 class Perlin {
 public:
-	Perlin(unsigned int seed);
+	Perlin(unsigned int seed, double xMax, double yMax, double zMax);
 	double noise(double x, double y, double z);
-	double getAverage(double xMax, int yMax, double zMax);
-	void noiseToFile(double xMax, double yMax, double zMax);
+	// Stats
+	double getAverage();
+	double getMedian();
+	double getThirdQuartile();
+	double getLastPercent();
+	double getStatsAt(int percentage);
+	// File
+	void noiseToFile();
 private:
 	double fade(double t);
 	double lerp(double t, double a, double b);
 	double grad(int hash, double x, double y, double z);
-	double computeAverage(double xMax, int yMax, double zMax);
+	// Stats
+	double computeAverage();
+	void computeStats();
 
 private:
 	std::vector<int> p;
+	std::vector<double> stats;
 	double average = -1;
-	double avX, avY, avZ;
+	double median = -1;
+	double thirdQuartile = -1;
+	double lastPercent = -1;
+	double xMax, yMax, zMax;
 };
 
 #endif // PERLIN_H

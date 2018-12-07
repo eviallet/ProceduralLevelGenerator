@@ -16,7 +16,7 @@ enum MapType {
 
 class Generator {
 public:
-	Generator(Map *map);
+	Generator(Map *map, double xMax = MAX_X, double yMax = MAX_Y, double zMax = MAX_Z);
 protected:
 	virtual void generate() = 0;
     static double percent();

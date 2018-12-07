@@ -31,17 +31,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 void MainWindow::generate() {
 	Map *map = new Map(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	QPalette p = _table->palette();
 	switch ((MapType)ui->comboBox->currentIndex()) {
 	case OVERWORLD:
-		Overworld(map).generate();;
-		p.setBrush(QPalette::Background, QPixmap(":/res/bkg/bkg_aerial.png"));
+		Overworld(map).generate();
+		//_table->setStyleSheet("QWidget {border-image: url(:/bkg/res/bkg_aerial.png) 0 0 0 0 stretch stretch; }");
 		break;
 	case UNDERGROUND:
 		Underground(map).generate();
 		break;
-	}
-	_table->setPalette(p);
+	} 
 	
 
 	// Applying colors and icons

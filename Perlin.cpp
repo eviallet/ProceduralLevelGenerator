@@ -1,7 +1,7 @@
 #include "Perlin.h"
 
 
-Perlin::Perlin(unsigned int seed) {
+Perlin::Perlin(unsigned int seed, double xMax, double yMax, double zMax) {
 	p = {
 		151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,
 		8,99,37,240,21,10,23,190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,
@@ -28,6 +28,10 @@ Perlin::Perlin(unsigned int seed) {
 
 	// Duplicate the permutation vector
 	p.insert(p.end(), p.begin(), p.end());
+
+	this->xMax = xMax;
+	this->yMax = yMax;
+	this->zMax = zMax;
 }
 
 double Perlin::noise(double x, double y, double z) {
@@ -71,25 +75,9 @@ double Perlin::grad(int hash, double x, double y, double z) {
 	return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 }
 
-double Perlin::getAverage(double xMax, int yMax, double zMax) {
-	if (average != -1 && avX == xMax && avY == yMax && avZ == zMax)
-		return average;
-	else
-		return computeAverage(xMax, yMax, zMax);
-}
 
-double Perlin::computeAverage(double xMax, int yMax, double zMax) {
-	average = 0;
-	for (double z = 0; z < zMax; z++)
-		for (double y = 0; y < yMax; y++)
-			for (double x = 0; x < xMax; x++)
-				average += noise(x, y, z);
-	avX = xMax; avY = yMax; avZ = zMax;
-	average /= (xMax*yMax*zMax);
-	return average;
-}
 
-void Perlin::noiseToFile(double xMax, double yMax, double zMax) {
+void Perlin::noiseToFile() {
 	std::ofstream file("C:/Users/Gueg/Desktop/noise.txt");
 	for (double z = 0; z < zMax; z++) {
 		for (double y = 0; y < yMax; y++)
@@ -101,3 +89,59 @@ void Perlin::noiseToFile(double xMax, double yMax, double zMax) {
 	system("cls");
 	std::cout << "Done";
 }
+
+
+
+double Perlin::getAverage() {
+	if (average != -1)
+		return average;
+	else
+		return computeAverage();
+}
+
+double Perlin::computeAverage() {
+	average = 0;
+	for (double z = 0; z < zMax; z++)
+		for (double y = 0; y < yMax; y++)
+			for (double x = 0; x < xMax; x++)
+				average += noise(x, y, z);
+	average /= (xMax*yMax*zMax);
+	return average;
+}
+
+double Perlin::getMedian() {
+	if (median == -1)
+		computeStats();
+	return median;
+}
+
+double Perlin::getThirdQuartile() {
+	if (thirdQuartile == -1)
+		computeStats();
+	return thirdQuartile;
+}
+
+
+double Perlin::getLastPercent() {
+	if (lastPercent == -1)
+		computeStats();
+	return lastPercent;
+}
+
+double Perlin::getStatsAt(int percentage) {
+	if (lastPercent == -1)
+		computeStats();
+	return stats[(int)((double)stats.size() * percentage/100.0)];
+}
+
+void Perlin::computeStats() {
+	for (double z = 0; z < zMax; z++)
+		for (double y = 0; y < yMax; y++)
+			for (double x = 0; x < xMax; x++)
+				stats.push_back(noise(x, y, z));
+	std::sort(stats.begin(), stats.end());
+	median = stats[(int)((double)stats.size() * 0.5)];
+	thirdQuartile = stats[(int)((double)stats.size() * 0.75)];
+	lastPercent = stats[(int)((double)stats.size() * 0.99)];
+}
+

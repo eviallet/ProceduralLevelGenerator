@@ -16,11 +16,14 @@ void Overworld::generate() {
 }
 
 void Overworld::randomizeTerrainHeight() {
-	int y = 0;
+	int y = 0, blockHeight = 2;
 	for (int x = 0; x < map->getWidth(); x++) {
-		if (p->noise(x, rand() % (int)MAX_Y, MAX_Z) < p->getAverage(MAX_X, MAX_Y, MAX_Z)) {
-			if ((y = map->getMapGroundHeight(x)) != -1 && map->getTile(x, y) == Tiles::Types::NONE)
-				map->setTile(x, y, Tiles::Props::BUSH);
+		if (p->noise(x, rand() % (int)MAX_Y, MAX_Z) > p->getThirdQuartile()) {
+			if ((y = map->getMapGroundHeight(x)) != -1 &&
+					y >= blockHeight &&
+					[&]() { for (int i = 1; i <= blockHeight; i++) if (map->getTile(x, y) != Tiles::Types::NONE) return false; return true; }()
+					)
+				rand() % 3 == 0 ? map->setTile(x, y - blockHeight, Tiles::Blocks::QUESTION) : map->setTile(x, y - blockHeight, Tiles::Blocks::BRICK);
 		}
 	}
 }

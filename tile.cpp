@@ -54,6 +54,12 @@ QPixmap Tile::getIcon(int mapType) const {
 	case Tiles::Props::BUSH:
 		path = ":/props/res/prop_bush.png";break;
 
+		// BlockType
+	case Tiles::Blocks::BRICK:
+		path = ":/blocks/res/block_block.png"; break;
+	case Tiles::Blocks::QUESTION:
+		path = ":/blocks/res/block_qm.png"; break;
+
 		// ObjectType
 	case Tiles::Objects::COIN:
 		path = ":/objects/res/object_coin.png"; break;
