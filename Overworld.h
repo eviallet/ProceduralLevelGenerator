@@ -9,7 +9,9 @@ public:
 	Overworld(Map * map);
 	void generate();
 protected:
-	void randomizeTerrainHeight();
+	void randomizeTerrainHoles();
+	void randomizeTerrainPlatforms();
+	void placeBlocks();
 };
 
 

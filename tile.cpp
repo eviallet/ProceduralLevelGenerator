@@ -56,15 +56,21 @@ QPixmap Tile::getIcon(int mapType) const {
 
 		// BlockType
 	case Tiles::Blocks::BRICK:
-		path = ":/blocks/res/block_block.png"; break;
+		path = ":/blocks/res/block_block.png";break;
 	case Tiles::Blocks::QUESTION:
-		path = ":/blocks/res/block_qm.png"; break;
+		path = ":/blocks/res/block_qm.png";break;
 
 		// ObjectType
 	case Tiles::Objects::COIN:
-		path = ":/objects/res/object_coin.png"; break;
+		path = ":/objects/res/object_coin.png";break;
 	case Tiles::Objects::FLAG:
-		path = ":/objects/res/object_flag.png"; break;
+		path = ":/objects/res/object_flag.png";break;
+		
+		// TerrainType
+	case Tiles::Terrain::PLATFORM:
+		path = QString(":/tiles/$/res/$/ground_above_up.png").replace("$", mapTypeStr); break;
+	case Tiles::Terrain::PLATFORM_GND:
+		path = QString(":/tiles/$/res/$/ground_gnd.png").replace("$", mapTypeStr); break;
 	}
 	icon = QPixmap(path);
 	if (!icon.isNull())

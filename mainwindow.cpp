@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 	// setting up the table
     _table = ui->table;
     _table->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    _table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    _table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	_table->setSelectionMode(QAbstractItemView::NoSelection);
     _table->setRowCount(DEFAULT_HEIGHT);
     _table->setColumnCount(DEFAULT_WIDTH);

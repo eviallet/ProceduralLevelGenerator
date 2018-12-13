@@ -30,7 +30,7 @@ int Map::getHeight() const {
     return _height;
 }
 
-int Map::getMapGroundHeight(int x) {
+int Map::getGroundHeight(int x) {
 	for (int y = _height - 1; y >= 0; y--)
 		if (!getTile(x, y).isGround())
 			return y;

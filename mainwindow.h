@@ -7,7 +7,7 @@
 #include "underground.h"
 #include "tile.h"
 
-constexpr auto DEFAULT_WIDTH = 65;
+constexpr auto DEFAULT_WIDTH = 130;
 constexpr auto DEFAULT_HEIGHT = 10;
 
 namespace Ui {

@@ -10,7 +10,8 @@ namespace Tiles {
 		GroundType=1000,
 		PropType=2000,
 		BlockType=3000,
-		ObjectType=4000
+		ObjectType=4000,
+		TerrainType=5000
 	};
 	
 	enum Ground {
@@ -43,6 +44,13 @@ namespace Tiles {
 		FLAG,
 		PIPE,		
 		INVALID_OBJECT
+	};
+
+	enum Terrain {
+		FIRST_TERRAIN = TerrainType,
+		PLATFORM = FIRST_TERRAIN,
+		PLATFORM_GND,
+		INVALID_TERRAIN
 	};
 };
 

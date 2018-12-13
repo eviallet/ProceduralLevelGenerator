@@ -12,7 +12,7 @@ public:
     Tile getTile(int row, int col) const;
     int getWidth() const;
     int getHeight() const;
-	int getMapGroundHeight(int x);
+	int getGroundHeight(int x);
 private:
 	Tile** _map;
     int _width, _height;

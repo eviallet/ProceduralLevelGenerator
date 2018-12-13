@@ -1,8 +1,13 @@
 #include "Perlin.h"
 
 
-Perlin::Perlin(unsigned int seed, double xMax, double yMax, double zMax) {
-	p = {
+Perlin::Perlin(unsigned int seed, double xMax, double yMax, double zMax) :
+	_seed(seed),
+	_xMax(xMax),
+	_yMax(yMax),
+	_zMax(zMax)
+{
+	_p = {
 		151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,
 		8,99,37,240,21,10,23,190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,
 		35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,168, 68,175,74,165,71,
@@ -16,22 +21,23 @@ Perlin::Perlin(unsigned int seed, double xMax, double yMax, double zMax) {
 		107,49,192,214, 31,181,199,106,157,184, 84,204,176,115,121,50,45,127, 4,150,254,
 		138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180 
 	};
-	
+
+	init();
+}
+
+
+void Perlin::init() {
 	// Fill p with values from 0 to 255
-	std::iota(p.begin(), p.end(), 0);
+	std::iota(_p.begin(), _p.end(), 0);
 
 	// Initialize a random engine with seed
-	std::default_random_engine engine(seed);
+	std::default_random_engine engine(_seed);
 	
 	// Suffle  using the above random engine
-	std::shuffle(p.begin(), p.end(), engine);
+	std::shuffle(_p.begin(), _p.end(), engine);
 
 	// Duplicate the permutation vector
-	p.insert(p.end(), p.begin(), p.end());
-
-	this->xMax = xMax;
-	this->yMax = yMax;
-	this->zMax = zMax;
+	_p.insert(_p.end(), _p.begin(), _p.end());
 }
 
 double Perlin::noise(double x, double y, double z) {
@@ -47,17 +53,17 @@ double Perlin::noise(double x, double y, double z) {
 	double u = fade(x),                                // COMPUTE FADE CURVES
 		v = fade(y),                                // FOR EACH OF X,Y,Z.
 		w = fade(z);
-	int A = p[X] + Y, AA = p[A] + Z, AB = p[A + 1] + Z,      // HASH COORDINATES OF
-		B = p[X + 1] + Y, BA = p[B] + Z, BB = p[B + 1] + Z;      // THE 8 CUBE CORNERS,
+	int A = _p[X] + Y, AA = _p[A] + Z, AB = _p[A + 1] + Z,      // HASH COORDINATES OF
+		B = _p[X + 1] + Y, BA = _p[B] + Z, BB = _p[B + 1] + Z;      // THE 8 CUBE CORNERS,
 
-	return lerp(w, lerp(v, lerp(u, grad(p[AA], x, y, z),  // AND ADD
-		grad(p[BA], x - 1, y, z)), // BLENDED
-		lerp(u, grad(p[AB], x, y - 1, z),  // RESULTS
-			grad(p[BB], x - 1, y - 1, z))),// FROM  8
-		lerp(v, lerp(u, grad(p[AA + 1], x, y, z - 1),  // CORNERS
-			grad(p[BA + 1], x - 1, y, z - 1)), // OF CUBE
-			lerp(u, grad(p[AB + 1], x, y - 1, z - 1),
-				grad(p[BB + 1], x - 1, y - 1, z - 1))));
+	return lerp(w, lerp(v, lerp(u, grad(_p[AA], x, y, z),  // AND ADD
+		grad(_p[BA], x - 1, y, z)), // BLENDED
+		lerp(u, grad(_p[AB], x, y - 1, z),  // RESULTS
+			grad(_p[BB], x - 1, y - 1, z))),// FROM  8
+		lerp(v, lerp(u, grad(_p[AA + 1], x, y, z - 1),  // CORNERS
+			grad(_p[BA + 1], x - 1, y, z - 1)), // OF CUBE
+			lerp(u, grad(_p[AB + 1], x, y - 1, z - 1),
+				grad(_p[BB + 1], x - 1, y - 1, z - 1))));
 }
 
 double Perlin::fade(double t) { 
@@ -79,12 +85,12 @@ double Perlin::grad(int hash, double x, double y, double z) {
 
 void Perlin::noiseToFile() {
 	std::ofstream file("C:/Users/Gueg/Desktop/noise.txt");
-	for (double z = 0; z < zMax; z++) {
-		for (double y = 0; y < yMax; y++)
-			for (double x = 0; x < xMax; x++)
+	for (double z = 0; z < _zMax; z++) {
+		for (double y = 0; y < _yMax; y++)
+			for (double x = 0; x < _xMax; x++)
 				file << x << " " << y << " " << z << " " << noise(x,y,z) << std::endl;
 		system("cls");
-		std::cout << (double)z*100/ zMax << "%";
+		std::cout << (double)z*100/ _zMax << "%";
 	}
 	system("cls");
 	std::cout << "Done";
@@ -93,55 +99,65 @@ void Perlin::noiseToFile() {
 
 
 double Perlin::getAverage() {
-	if (average != -1)
-		return average;
+	if (_average != -1)
+		return _average;
 	else
 		return computeAverage();
 }
 
 double Perlin::computeAverage() {
-	average = 0;
-	for (double z = 0; z < zMax; z++)
-		for (double y = 0; y < yMax; y++)
-			for (double x = 0; x < xMax; x++)
-				average += noise(x, y, z);
-	average /= (xMax*yMax*zMax);
-	return average;
+	_average = 0;
+	for (double z = 0; z < _zMax; z++)
+		for (double y = 0; y < _yMax; y++)
+			for (double x = 0; x < _xMax; x++)
+				_average += noise(x, y, z);
+	_average /= (_xMax*_yMax*_zMax);
+	return _average;
 }
 
 double Perlin::getMedian() {
-	if (median == -1)
+	if (_median == -1)
 		computeStats();
-	return median;
+	return _median;
 }
 
 double Perlin::getThirdQuartile() {
-	if (thirdQuartile == -1)
+	if (_thirdQuartile == -1)
 		computeStats();
-	return thirdQuartile;
+	return _thirdQuartile;
 }
 
 
 double Perlin::getLastPercent() {
-	if (lastPercent == -1)
+	if (_lastPercent == -1)
 		computeStats();
-	return lastPercent;
+	return _lastPercent;
 }
 
 double Perlin::getStatsAt(int percentage) {
-	if (lastPercent == -1)
+	if (_lastPercent == -1)
 		computeStats();
-	return stats[(int)((double)stats.size() * percentage/100.0)];
+	return _stats[(int)((double)_stats.size() * percentage/100.0)];
 }
 
 void Perlin::computeStats() {
-	for (double z = 0; z < zMax; z++)
-		for (double y = 0; y < yMax; y++)
-			for (double x = 0; x < xMax; x++)
-				stats.push_back(noise(x, y, z));
-	std::sort(stats.begin(), stats.end());
-	median = stats[(int)((double)stats.size() * 0.5)];
-	thirdQuartile = stats[(int)((double)stats.size() * 0.75)];
-	lastPercent = stats[(int)((double)stats.size() * 0.99)];
+	for (double z = 0; z < _zMax; z++)
+		for (double y = 0; y < _yMax; y++)
+			for (double x = 0; x < _xMax; x++)
+				_stats.push_back(noise(x, y, z));
+	std::sort(_stats.begin(), _stats.end());
+	_median = _stats[(int)((double)_stats.size() * 0.5)];
+	_thirdQuartile = _stats[(int)((double)_stats.size() * 0.75)];
+	_lastPercent = _stats[(int)((double)_stats.size() * 0.99)];
 }
+
+void Perlin::randomize() {
+	_seed++;
+	_average = -1;
+	_thirdQuartile = -1;
+	_median = -1;
+	_lastPercent = -1;
+	init();
+}
+
 

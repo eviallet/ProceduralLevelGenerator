@@ -20,6 +20,7 @@ class Perlin {
 public:
 	Perlin(unsigned int seed, double xMax, double yMax, double zMax);
 	double noise(double x, double y, double z);
+	void randomize();
 	// Stats
 	double getAverage();
 	double getMedian();
@@ -29,6 +30,7 @@ public:
 	// File
 	void noiseToFile();
 private:
+	void init();
 	double fade(double t);
 	double lerp(double t, double a, double b);
 	double grad(int hash, double x, double y, double z);
@@ -37,13 +39,14 @@ private:
 	void computeStats();
 
 private:
-	std::vector<int> p;
-	std::vector<double> stats;
-	double average = -1;
-	double median = -1;
-	double thirdQuartile = -1;
-	double lastPercent = -1;
-	double xMax, yMax, zMax;
+	unsigned int _seed;
+	std::vector<int> _p;
+	std::vector<double> _stats;
+	double _average = -1;
+	double _median = -1;
+	double _thirdQuartile = -1;
+	double _lastPercent = -1;
+	double _xMax, _yMax, _zMax;
 };
 
 #endif // PERLIN_H
