@@ -34,7 +34,7 @@ QPixmap Tile::getIcon(int mapType) const {
 	QPixmap icon;
 	QString path = "";
 	switch (_type) {
-	case Tiles::Types::NONE:
+	case Tiles::NONE:
 		break;
 		// GroundType
 	case Tiles::Ground::GND:

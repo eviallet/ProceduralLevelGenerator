@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "Tile.h"
 #include "Perlin.h"
+#include "Random.h"
 
 constexpr int Y = 0;
 constexpr int X = 1;

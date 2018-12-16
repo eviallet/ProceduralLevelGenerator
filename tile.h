@@ -58,7 +58,7 @@ namespace Tiles {
 
 class Tile {
 public:
-	Tile(int type = Tiles::Types::NONE);
+	Tile(int type = Tiles::NONE);
 	void setType(int type);
 	int getType() const;
 	QPixmap getIcon(int mapType) const;

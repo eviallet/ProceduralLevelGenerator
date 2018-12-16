@@ -197,12 +197,14 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Overworld.cpp" />
     <ClCompile Include="Perlin.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Underground.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Generator.h" />
     <ClInclude Include="Perlin.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="Underground.h" />
     <QtMoc Include="MainWindow.h">
     </QtMoc>

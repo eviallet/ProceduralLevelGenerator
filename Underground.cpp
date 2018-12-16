@@ -40,13 +40,13 @@ void Underground::generate() {
 				// then draw this point
 				curPoint[X] = futurePoint[X];
 				curPoint[Y] = futurePoint[Y];
-				map->setTile(curPoint[X], curPoint[Y], Tiles::Types::NONE);
+				map->setTile(curPoint[X], curPoint[Y], Tiles::NONE);
 			}
 		}
 
 		int x = 0, y = 0;
 		while (x < map->getWidth()) {
-			if (map->getTile(x, y).getType() == Tiles::Types::NONE) {
+			if (map->getTile(x, y).getType() == Tiles::NONE) {
 				leftMost = x;
 				break;
 			}
@@ -61,7 +61,7 @@ void Underground::generate() {
 
 		x = map->getWidth(); y = 0;
 		while (x >= 0) {
-			if (map->getTile(x, y).getType() == Tiles::Types::NONE) {
+			if (map->getTile(x, y).getType() == Tiles::NONE) {
 				rightMost = x;
 				break;
 			}
