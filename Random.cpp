@@ -67,7 +67,7 @@ normal_distribution (5.0,2.0):
 6-7: ***************
 7-8: ********
 8-9: ****
-9-10: *
+9-10:*
 */
 double Random::gaussian(double variance) {
 	std::normal_distribution<double> distribution(0, variance);

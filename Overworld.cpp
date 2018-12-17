@@ -7,14 +7,27 @@ void Overworld::generate() {
 	for (int x = 0; x < map->getWidth(); x++)
 		map->setTile(x, map->getHeight() - 1, Tiles::Ground::UP);
 
-	map->setTile(2, map->getHeight() - 2, Tiles::Props::SIGN);
-	map->setTile(map->getWidth() - 2, map->getHeight() - 2, Tiles::Objects::FLAG);
+	map->setTile(SIGN_POS, map->getHeight() - 2, Tiles::Props::SIGN);
+	map->setTile(map->getWidth() - FLAG_POS, map->getHeight() - 2, Tiles::Objects::FLAG);
 
 	randomizeTerrainHoles();
 	p->randomize();
 	randomizeTerrainPlatforms();
 	p->randomize();
 	placeBlocks();
+}
+
+void Overworld::randomizeTerrainHoles() {
+	for (int x = 5; x < map->getWidth(); x++) {
+		if (p->noise(x, Random::uniform(0, (int)MAX_Y), MAX_Z) > p->getStatsAt(90)) {
+			int length = Random::uniform(1, 4);
+			if (x + length < map->getWidth() + 1) {
+				for (int i = 0; i < length; i++)
+					map->setTile(x + i, map->getHeight() - 1, Tiles::NONE);
+				x += length + 3;
+			}
+		}
+	}
 }
 
 void Overworld::randomizeTerrainPlatforms() {
@@ -31,23 +44,11 @@ void Overworld::randomizeTerrainPlatforms() {
 				// place platforms
 				for (int i = 0; i < length; i++) {
 					map->setTile(x + i, y, Tiles::Terrain::PLATFORM);
+					int distToGround = map->getGroundHeight(x + i) - y;
 					// and link them to the ground
-					for (int j = 1; j <= height; j++)
+					for (int j = 1; j <= distToGround; j++)
 						map->setTile(x + i, y + j, Tiles::Terrain::PLATFORM_GND);
 				}
-				x += length + 3;
-			}
-		}
-	}
-}
-
-void Overworld::randomizeTerrainHoles() {
-	for (int x = 5; x < map->getWidth(); x++) {
-		if (p->noise(x, Random::uniform(0, (int)MAX_Y), MAX_Z) > p->getStatsAt(90)) {
-			int length = Random::uniform(1, 4);
-			if (x + length < map->getWidth() + 1) {
-				for (int i = 0; i < length; i++)
-					map->setTile(x + i, map->getHeight() - 1, Tiles::NONE);
 				x += length + 3;
 			}
 		}
