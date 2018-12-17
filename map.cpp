@@ -1,11 +1,10 @@
 #include "map.h"
 
-Map::Map(int w, int h) {
-	_map = new Tile*[h];
-	for (int i = 0; i < h; i++)
-		_map[i] = new Tile[w];
-	_width = w;
-    _height = h;
+Map::Map(int w, int h) 
+	: _height(h), _width(w) {
+	_map = new Tile*[_height];
+	for (int i = 0; i < _height; i++)
+		_map[i] = new Tile[_width];
 }
 
 void Map::fill(int type) {
@@ -14,12 +13,12 @@ void Map::fill(int type) {
 			_map[y][x].setType(type);
 }
 
-void Map::setTile(int row, int col, int type) {
-    _map[col][row].setType(type);
+void Map::setTile(int x, int y, int type) {
+    _map[_height - 1 - y][x].setType(type);
 }
 
-Tile Map::getTile(int row, int col) const {
-    return _map[col][row];
+Tile Map::getTile(int x, int y) const {
+    return _map[y][x];
 }
 
 int Map::getWidth() const {
@@ -31,7 +30,7 @@ int Map::getHeight() const {
 }
 
 int Map::getGroundHeight(int x) {
-	for (int y = _height - 1; y >= 0; y--)
+	for (int y = 0; y < _height; y++)
 		if (!getTile(x, y).isGround())
 			return y;
 	return -1;
