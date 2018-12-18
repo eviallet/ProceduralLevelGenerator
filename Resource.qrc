@@ -31,5 +31,7 @@
         <file>res/overworld/ground_above_up_right.png</file>
         <file>res/overworld/ground_gnd.png</file>
         <file>res/overworld/ground_up.png</file>
+        <file>res/overworld/ground_up_left.png</file>
+        <file>res/overworld/ground_up_right.png</file>
     </qresource>
 </RCC>

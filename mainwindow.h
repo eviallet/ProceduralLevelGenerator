@@ -24,6 +24,7 @@ public:
 
 private slots:
     void generate();
+	void debug();
 private:
     Ui::MainWindow *ui;
     QTableWidget *_table;

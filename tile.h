@@ -21,6 +21,8 @@ namespace Tiles {
 		LEFT,
 		RIGHT,
 		DOWN,
+		UP_LEFT,
+		UP_RIGHT,
 		INVALID_GROUND
 	};
 	
@@ -50,6 +52,10 @@ namespace Tiles {
 		FIRST_TERRAIN = TerrainType,
 		PLATFORM = FIRST_TERRAIN,
 		PLATFORM_GND,
+		PLATFORM_LEFT,
+		PLATFORM_RIGHT,
+		PLATFORM_UP_LEFT,
+		PLATFORM_UP_RIGHT,
 		INVALID_TERRAIN
 	};
 };
@@ -64,6 +70,7 @@ public:
 	QPixmap getIcon(int mapType) const;
 	bool isGround();
 	static bool isGround(int type);
+	bool isStandable();
 private:
 	int _type;
 };

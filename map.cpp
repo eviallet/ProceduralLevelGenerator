@@ -18,7 +18,7 @@ void Map::setTile(int x, int y, int type) {
 }
 
 Tile Map::getTile(int x, int y) const {
-    return _map[y][x];
+    return _map[_height - 1 - y][x];
 }
 
 int Map::getWidth() const {

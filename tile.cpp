@@ -21,6 +21,10 @@ bool Tile::isGround(int type) {
 	return Tiles::Ground::FIRST_GROUND <= type && type < Tiles::INVALID_GROUND;
 }
 
+bool Tile::isStandable() {
+	return isGround() || _type == Tiles::Terrain::PLATFORM || Tiles::Terrain::PLATFORM_UP_RIGHT || Tiles::Terrain::PLATFORM_UP_LEFT;
+}
+
 QPixmap Tile::getIcon(int mapType) const {
 	QString mapTypeStr = "";
 	switch (mapType) {
@@ -46,7 +50,11 @@ QPixmap Tile::getIcon(int mapType) const {
 	case Tiles::Ground::RIGHT:
 		path = QString(":/tiles/$/res/$/ground_right.png").replace("$", mapTypeStr);break;
 	case Tiles::Ground::DOWN:
-		path = QString(":/tiles/$/res/$/ground_down.png").replace("$", mapTypeStr);break;
+		path = QString(":/tiles/$/res/$/ground_down.png").replace("$", mapTypeStr); break;
+	case Tiles::Ground::UP_LEFT:
+		path = QString(":/tiles/$/res/$/ground_up_left.png").replace("$", mapTypeStr); break;
+	case Tiles::Ground::UP_RIGHT:
+		path = QString(":/tiles/$/res/$/ground_up_right.png").replace("$", mapTypeStr); break;
 
 		// PropType
 	case Tiles::Props::SIGN:
@@ -71,6 +79,14 @@ QPixmap Tile::getIcon(int mapType) const {
 		path = QString(":/tiles/$/res/$/ground_above_up.png").replace("$", mapTypeStr); break;
 	case Tiles::Terrain::PLATFORM_GND:
 		path = QString(":/tiles/$/res/$/ground_gnd.png").replace("$", mapTypeStr); break;
+	case Tiles::Terrain::PLATFORM_LEFT:
+		path = QString(":/tiles/$/res/$/ground_above_left.png").replace("$", mapTypeStr); break;
+	case Tiles::Terrain::PLATFORM_RIGHT:
+		path = QString(":/tiles/$/res/$/ground_above_right.png").replace("$", mapTypeStr); break;
+	case Tiles::Terrain::PLATFORM_UP_LEFT:
+		path = QString(":/tiles/$/res/$/ground_above_up_left.png").replace("$", mapTypeStr); break;
+	case Tiles::Terrain::PLATFORM_UP_RIGHT:
+		path = QString(":/tiles/$/res/$/ground_above_up_right.png").replace("$", mapTypeStr); break;
 	}
 	icon = QPixmap(path);
 	if (!icon.isNull())

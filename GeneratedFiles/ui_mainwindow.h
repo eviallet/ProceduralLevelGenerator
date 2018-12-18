@@ -32,6 +32,7 @@ public:
     QTableWidget *table;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer;
+    QPushButton *btn_debug;
     QComboBox *comboBox;
     QPushButton *btn_generate;
     QSpacerItem *horizontalSpacer_2;
@@ -67,6 +68,11 @@ public:
 
         horizontalLayout_5->addItem(horizontalSpacer);
 
+        btn_debug = new QPushButton(centralWidget);
+        btn_debug->setObjectName(QStringLiteral("btn_debug"));
+
+        horizontalLayout_5->addWidget(btn_debug);
+
         comboBox = new QComboBox(centralWidget);
         comboBox->setObjectName(QStringLiteral("comboBox"));
 
@@ -97,6 +103,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        btn_debug->setText(QApplication::translate("MainWindow", "Debug", nullptr));
         btn_generate->setText(QApplication::translate("MainWindow", "G\303\251n\303\251rer", nullptr));
     } // retranslateUi
 

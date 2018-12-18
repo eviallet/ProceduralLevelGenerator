@@ -4,6 +4,8 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
+	connect(ui->btn_debug, &QPushButton::clicked, this, &MainWindow::debug);
+
 	// setting up the table
     _table = ui->table;
     _table->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -24,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 		}
 	));
     ui->comboBox->setCurrentIndex(0);
+
 	
     connect(ui->btn_generate, &QPushButton::clicked, this, &MainWindow::generate);
     generate();
@@ -46,7 +49,7 @@ void MainWindow::generate() {
 	for (int y = 0; y < map->getHeight(); y++) {
 		for (int x = 0; x < map->getWidth(); x++) {
 			QTableWidgetItem *item = new QTableWidgetItem;
-			item->setData(Qt::BackgroundRole, QBrush(QPixmap(map->getTile(x, y).getIcon(ui->comboBox->currentIndex()))));
+			item->setData(Qt::BackgroundRole, QBrush(QPixmap(map->getTile(x, map->getHeight() - 1 - y).getIcon(ui->comboBox->currentIndex()))));
 			_table->setItem(y, x, item);
 		}
 	}
@@ -54,4 +57,8 @@ void MainWindow::generate() {
 
 MainWindow::~MainWindow() {
     delete ui; 
+}
+
+void MainWindow::debug() {
+	
 }
