@@ -29,9 +29,68 @@ int Map::getHeight() const {
     return _height;
 }
 
+/*
+	Run through the column starting from 0 and return the first non-ground tile
+*/
 int Map::getGroundHeight(int x) {
 	for (int y = 0; y < _height; y++)
 		if (!getTile(x, y).isGround())
 			return y;
 	return -1;
+}
+
+/*
+	Run through the column starting from 0 and return the first empty tile
+	Useful to put block or enemis on top of platforms connected with the ground
+*/
+int Map::getFreeTileHeight(int x) {
+	for (int y = 0; y < _height; y++)
+		if (getTile(x, y) == Tiles::NONE)
+			return y;
+	return -1;
+}
+
+/*
+	Return the number of %type tiles contained in the map
+*/
+int Map::count(int type) {
+	int cnt = 0;
+	for (int y = 0; y < _height; y++)
+		for (int x = 0; x < _width; x++)
+			if (getTile(x, y) == type)
+				cnt++;
+	return cnt;
+}
+
+bool Map::areaContainsOnly(int xMin, int yMin, int xMax, int yMax, int types[], int length) {
+	for (int x = xMin; x <= xMax; x++)
+		for (int y = yMin; y <= yMax; y++) {
+			if (length == 0) { // is area empty ?
+				if (getTile(x, y) != Tiles::NONE)
+					return false;
+			}
+			else {
+				bool typeFound = false;
+				for (int i = 0; i < length; i++)
+					if (getTile(x, y) == types[i])
+						typeFound = true;
+				if (!typeFound)
+					return false;
+			}
+		}
+	return true;
+}
+
+bool Map::areaContainsNo(int xMin, int yMin, int xMax, int yMax, int types[], int length) {
+	for (int x = xMin; x <= xMax; x++)
+		for (int y = yMin; y <= yMax; y++) {
+			if (length == 0) { // is area filled ?
+				if (getTile(x, y) == Tiles::NONE)
+					return false;
+			}
+			else for (int i = 0; i < length; i++)
+				if (getTile(x, y) == types[i])
+					return false;
+		}
+	return true;
 }

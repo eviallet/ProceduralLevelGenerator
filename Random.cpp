@@ -3,6 +3,16 @@
 std::default_random_engine Random::generator;
 
 /*
+return true 1 time out of prob*100 with 0<=prob<=1.
+Example : prob = 1/2 will return true 1 time out of 2
+*/
+int Random::dice(double prob) {
+	std::uniform_int_distribution<int> distribution(0, 100);
+	return prob * 100 < distribution(generator);
+}
+
+
+/*
 uniform_int_distribution (0,9):
 0: *********
 1: *********
@@ -51,7 +61,7 @@ binomial_distribution (9,0.5):
 8: *
 9:
 */
-int Random::binomial(int n, int p) {
+int Random::binomial(int n, double p) {
 	std::binomial_distribution<int> distribution(n, p);
 	return distribution(generator);
 }
@@ -69,7 +79,7 @@ normal_distribution (5.0,2.0):
 8-9: ****
 9-10:*
 */
-double Random::gaussian(double variance) {
-	std::normal_distribution<double> distribution(0, variance);
+double Random::gaussian(double mean, double variance) {
+	std::normal_distribution<double> distribution(mean, variance);
 	return distribution(generator);
 }

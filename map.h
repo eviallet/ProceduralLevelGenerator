@@ -12,6 +12,10 @@ public:
     int getWidth() const;
     int getHeight() const;
 	int getGroundHeight(int x);
+	int getFreeTileHeight(int x);
+	int count(int type);
+	bool areaContainsOnly(int xMin, int yMin, int xMax, int yMax, int types[] = 0, int length = 0);
+	bool areaContainsNo(int xMin, int yMin, int xMax, int yMax, int types[], int length);
 private:
 	Tile** _map;
     int _width, _height;

@@ -9,7 +9,7 @@ const int Generator::DIRECTIONS[][2] = {
 
 Generator::Generator(Map *map, double xMax, double yMax, double zMax) {
 	this->map = map;
-	p = new Perlin(rand(), xMax, yMax, zMax);
+	p = new Perlin(xMax, yMax, zMax);
 }
 
 // Returns a random percentage

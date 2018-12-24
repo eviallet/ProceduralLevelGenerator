@@ -98,7 +98,7 @@ void Underground::generate() {
 		for (int x = 0; x < map->getWidth(); x++) {
 			if (Tile::isGround(map->getTile(x, y).getType())) {
 				if (map->getTile(x, y) != map->getTile(x, y + 1))
-					map->setTile(x, y, Tiles::Ground::DOWN);
+					map->setTile(x, y, Tiles::Ground::UP);
 			}
 		}
 	}
@@ -106,7 +106,7 @@ void Underground::generate() {
 		for (int x = 0; x < map->getWidth(); x++) {
 			if (Tile::isGround(map->getTile(x, y).getType())) {
 				if (map->getTile(x, y) != map->getTile(x, y - 1))
-					map->setTile(x, y, Tiles::Ground::UP);
+					map->setTile(x, y, Tiles::Ground::DOWN);
 			}
 		}
 	}

@@ -18,7 +18,7 @@ constexpr double MAX_Z = 1.0;
 
 class Perlin {
 public:
-	Perlin(unsigned int seed, double xMax, double yMax, double zMax);
+	Perlin(double xMax, double yMax, double zMax);
 	double noise(double x, double y, double z);
 	void randomize();
 	// Stats
@@ -39,8 +39,8 @@ private:
 	void computeStats();
 
 private:
-	unsigned int _seed;
 	std::vector<int> _p;
+	std::vector<int> _p_0;
 	std::vector<double> _stats;
 	double _average = -1;
 	double _median = -1;

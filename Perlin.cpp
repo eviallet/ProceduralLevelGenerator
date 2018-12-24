@@ -1,13 +1,12 @@
 #include "Perlin.h"
 
 
-Perlin::Perlin(unsigned int seed, double xMax, double yMax, double zMax) :
-	_seed(seed),
+Perlin::Perlin(double xMax, double yMax, double zMax) :
 	_xMax(xMax),
 	_yMax(yMax),
 	_zMax(zMax)
 {
-	_p = {
+	_p_0 = {
 		151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,
 		8,99,37,240,21,10,23,190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,
 		35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,168, 68,175,74,165,71,
@@ -27,11 +26,13 @@ Perlin::Perlin(unsigned int seed, double xMax, double yMax, double zMax) :
 
 
 void Perlin::init() {
+	_p = _p_0;
+
 	// Fill p with values from 0 to 255
 	std::iota(_p.begin(), _p.end(), 0);
 
-	// Initialize a random engine with seed
-	std::default_random_engine engine(_seed);
+	// Initialize a random engine
+	std::default_random_engine engine(rand());
 	
 	// Suffle  using the above random engine
 	std::shuffle(_p.begin(), _p.end(), engine);
@@ -152,7 +153,6 @@ void Perlin::computeStats() {
 }
 
 void Perlin::randomize() {
-	_seed++;
 	_average = -1;
 	_thirdQuartile = -1;
 	_median = -1;

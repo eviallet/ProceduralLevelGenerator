@@ -22,11 +22,15 @@ bool Tile::isGround(int type) {
 }
 
 bool Tile::isStandable() {
-	return isGround() || _type == Tiles::Terrain::PLATFORM || Tiles::Terrain::PLATFORM_UP_RIGHT || Tiles::Terrain::PLATFORM_UP_LEFT;
+	return _type == Tiles::Ground::UP || _type == Tiles::Terrain::PLATFORM || Tiles::Terrain::PLATFORM_UP_RIGHT || Tiles::Terrain::PLATFORM_UP_LEFT;
 }
 
 QPixmap Tile::getIcon(int mapType) const {
 	QString mapTypeStr = "";
+	int rotationDir = -1;
+	const int HORIZ = 0;
+	const int VERT = 1;
+	const int BOTH = 2;
 	switch (mapType) {
 	case 0:
 		mapTypeStr = "overworld";
@@ -87,8 +91,30 @@ QPixmap Tile::getIcon(int mapType) const {
 		path = QString(":/tiles/$/res/$/ground_above_up_left.png").replace("$", mapTypeStr); break;
 	case Tiles::Terrain::PLATFORM_UP_RIGHT:
 		path = QString(":/tiles/$/res/$/ground_above_up_right.png").replace("$", mapTypeStr); break;
+	case Tiles::Terrain::SLOPE_DOWN_LEFT_1:
+		path = QString(":/tiles/$/res/$/slope_down_left_1.png").replace("$", mapTypeStr); break;
+	case Tiles::Terrain::SLOPE_DOWN_LEFT_1_GND:
+		path = QString(":/tiles/$/res/$/slope_down_left_1_gnd.png").replace("$", mapTypeStr); break;
+	case Tiles::Terrain::SLOPE_DOWN_RIGHT_1:
+		path = QString(":/tiles/$/res/$/slope_down_left_1.png").replace("$", mapTypeStr);
+		rotationDir = HORIZ; break;
+	case Tiles::Terrain::SLOPE_DOWN_RIGHT_1_GND:
+		path = QString(":/tiles/$/res/$/slope_down_left_1_gnd.png").replace("$", mapTypeStr);
+		rotationDir = HORIZ; break;
 	}
+	
 	icon = QPixmap(path);
+	if (rotationDir != -1) {
+		switch (rotationDir) {
+		case HORIZ:
+			icon = QPixmap::fromImage(icon.toImage().mirrored(true, false)); break;
+		case VERT:
+			icon = QPixmap::fromImage(icon.toImage().mirrored(false, true)); break;
+		case BOTH:
+			icon = QPixmap::fromImage(icon.toImage().mirrored(true, true)); break;
+		}
+	}
+
 	if (!icon.isNull())
 		return icon.scaled(QSize(20, 20));
 	else
