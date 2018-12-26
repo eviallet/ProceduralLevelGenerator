@@ -20,7 +20,6 @@ public:
 	Generator(Map *map, double xMax = MAX_X, double yMax = MAX_Y, double zMax = MAX_Z);
 protected:
 	virtual void generate() = 0;
-    static double percent();
 protected:
     static const int DIRECTIONS[][2];
 	Perlin *p;

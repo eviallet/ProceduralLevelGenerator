@@ -101,6 +101,37 @@ QPixmap Tile::getIcon(int mapType) const {
 	case Tiles::Terrain::SLOPE_DOWN_RIGHT_1_GND:
 		path = QString(":/tiles/$/res/$/slope_down_left_1_gnd.png").replace("$", mapTypeStr);
 		rotationDir = HORIZ; break;
+
+		// EnemyType
+	case Tiles::Enemies::GOOMBA:
+		path = QString(":/enemies/res/enemies/goomba.png"); break;
+	case Tiles::Enemies::BOBOMB:
+		path = QString(":/enemies/res/enemies/bobomb.png"); break;
+	case Tiles::Enemies::BOO:
+		path = QString(":/enemies/res/enemies/boo.png"); break;
+	case Tiles::Enemies::DINO:
+		path = QString(":/enemies/res/enemies/dino.png"); break;
+	case Tiles::Enemies::DINO_FIRE:
+		path = QString(":/enemies/res/enemies/dino_fire.png"); break;
+	case Tiles::Enemies::KAMEC:
+		path = QString(":/enemies/res/enemies/kamec.png"); break;
+	case Tiles::Enemies::KOOPA_CAPE:
+		path = QString(":/enemies/res/enemies/koopa_cape.png"); break;
+	case Tiles::Enemies::MOLE:
+		path = QString(":/enemies/res/enemies/mole.png"); break;
+	case Tiles::Enemies::QUATERBACK:
+		path = QString(":/enemies/res/enemies/quaterback.png"); break;
+	case Tiles::Enemies::FLYING_ENEMIES:
+	case Tiles::Enemies::GOOMBA_FLYING:
+		path = QString(":/enemies/res/enemies/goomba_flying.png"); break;
+	case Tiles::Enemies::KOOPA_GREEN_FLYING:
+		path = QString(":/enemies/res/enemies/koopa_green_flying.png"); break;
+	case Tiles::Enemies::KOOPA_RED_FLYING:
+		path = QString(":/enemies/res/enemies/koopa_red_flying.png"); break;
+	case Tiles::Enemies::BOBOMB_PARACHUTE:
+		path = QString(":/enemies/res/enemies/bobomp_parachute.png"); break;
+	case Tiles::Enemies::BILL_BALL:
+		path = QString(":/enemies/res/enemies/bill_ball.png"); break;
 	}
 	
 	icon = QPixmap(path);

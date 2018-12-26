@@ -10,8 +10,8 @@ void Underground::generate() {
 	int curDirIndex, prevDirIndex = rand() % 4;
 	// start from a random point on the map ; it must be included in [1;width-1]
 	int curPoint[] = {
-		(int)floor(percent()*(map->getHeight() - 2)) + 1,	// X
-		(int)floor(percent()*(map->getWidth() - 2)) + 1		// Y
+		(int)floor(Random::percent()*(map->getHeight() - 2)) + 1,	// X
+		(int)floor(Random::percent()*(map->getWidth() - 2)) + 1		// Y
 	};
 
 	map->fill(Tiles::Ground::GND);
@@ -29,7 +29,7 @@ void Underground::generate() {
 				(DIRECTIONS[curDirIndex][X] == -DIRECTIONS[prevDirIndex][X] && DIRECTIONS[curDirIndex][Y] == -DIRECTIONS[prevDirIndex][Y]));
 			prevDirIndex = curDirIndex;
 			// choose a random size for this tunnel
-			int tunnelSize = (int)ceil(percent()*MAX_LENGTH);
+			int tunnelSize = (int)ceil(Random::percent()*MAX_LENGTH);
 			for (int j = 0; j < tunnelSize; j++) {
 				// we first have to check if, going in our direction, we won't encounter any border of the map, stopping the drawing in that case.
 				int futurePoint[2];

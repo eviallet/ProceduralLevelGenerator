@@ -17,6 +17,7 @@ protected:
 	void randomizeTerrainPlatforms();
 	void randomizeBlocks();
 	void randomizeSlopes();
+	void randomizeEnemies();
 };
 
 

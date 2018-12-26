@@ -11,6 +11,14 @@ int Random::dice(double prob) {
 	return prob * 100 < distribution(generator);
 }
 
+/*
+return a number between 0. and 1.
+*/
+double Random::percent() {
+	std::uniform_int_distribution<int> distribution(0, 100);
+	return (double)distribution(generator) / 100;
+}
+
 
 /*
 uniform_int_distribution (0,9):

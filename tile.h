@@ -11,7 +11,8 @@ namespace Tiles {
 		PropType=2000,
 		BlockType=3000,
 		ObjectType=4000,
-		TerrainType=5000
+		TerrainType=5000,
+		EnemyType=6000
 	};
 	
 	enum Ground {
@@ -61,6 +62,28 @@ namespace Tiles {
 		SLOPE_DOWN_RIGHT_1,
 		SLOPE_DOWN_RIGHT_1_GND,
 		INVALID_TERRAIN
+	};
+
+	enum Enemies {
+		FIRST_ENEMY = EnemyType,
+		GOOMBA = FIRST_ENEMY,
+		KOOPA_GREEN,
+		KOOPA_RED,
+		BOBOMB,
+		BOO,
+		DINO,
+		DINO_FIRE,
+		KAMEC,
+		KOOPA_CAPE,
+		MOLE,
+		QUATERBACK,
+		FLYING_ENEMIES,
+		GOOMBA_FLYING,
+		KOOPA_GREEN_FLYING,
+		KOOPA_RED_FLYING,
+		BOBOMB_PARACHUTE,
+		BILL_BALL,
+		INVALID_ENEMY
 	};
 };
 

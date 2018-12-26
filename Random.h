@@ -6,6 +6,7 @@
 class Random {
 public:
 	static int dice(double prob);
+	static double percent();
 	static int uniform(int min, int max);
 	static double uniform(double min, double max);
 	static int binomial(int n, double p);

@@ -6,7 +6,41 @@
         <file>res/underground/ground_right.png</file>
         <file>res/underground/ground_up.png</file>
     </qresource>
-    <qresource prefix="/enemies"/>
+    <qresource prefix="/enemies">
+        <file>res/enemies/bill_ball.png</file>
+        <file>res/enemies/bill_ball_huge.png</file>
+        <file>res/enemies/bobomb.png</file>
+        <file>res/enemies/bobomb_parachute.png</file>
+        <file>res/enemies/boo.png</file>
+        <file>res/enemies/dino.png</file>
+        <file>res/enemies/dino_fire.png</file>
+        <file>res/enemies/fish_green.png</file>
+        <file>res/enemies/fish_purple.png</file>
+        <file>res/enemies/fish_skelet.png</file>
+        <file>res/enemies/flower_black.png</file>
+        <file>res/enemies/flower_fire.png</file>
+        <file>res/enemies/fuzzy.png</file>
+        <file>res/enemies/goomba.png</file>
+        <file>res/enemies/goomba_flying.png</file>
+        <file>res/enemies/goomba_parachute.png</file>
+        <file>res/enemies/kamec.png</file>
+        <file>res/enemies/koopa_cape.png</file>
+        <file>res/enemies/koopa_green.png</file>
+        <file>res/enemies/koopa_green_flying.png</file>
+        <file>res/enemies/koopa_red.png</file>
+        <file>res/enemies/koopa_red_flying.png</file>
+        <file>res/enemies/lakitu.png</file>
+        <file>res/enemies/marto.png</file>
+        <file>res/enemies/mole.png</file>
+        <file>res/enemies/piranha.png</file>
+        <file>res/enemies/piranha_small.png</file>
+        <file>res/enemies/pokey.png</file>
+        <file>res/enemies/quaterback.png</file>
+        <file>res/enemies/shell_cave.png</file>
+        <file>res/enemies/thwomp.png</file>
+        <file>res/enemies/thwomp_small.png</file>
+        <file>res/enemies/wiggler.png</file>
+    </qresource>
     <qresource prefix="/blocks">
         <file>res/block_qm.png</file>
         <file>res/block_block.png</file>

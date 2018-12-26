@@ -20,6 +20,7 @@ void Overworld::generate() {
 	//p->randomize();
 	randomizeBlocks();
 	p->randomize();
+	randomizeEnemies();
 }
 
 void Overworld::randomizeTerrainHoles() {
@@ -39,7 +40,7 @@ void Overworld::randomizeTerrainHoles() {
 
 void Overworld::randomizeTerrainPlatforms() {
 	// for all map length
-	for (int x = SIGN_POS + 2; x < map->getWidth(); x++) {
+	for (int x = SIGN_POS + 2; x < map->getWidth() - FLAG_POS - 5; x++) {
 		// if random noise at this point is greater than 90% other points
 		if (p->noise(x, Random::uniform(0, (int)MAX_Y), MAX_Z) > p->getStatsAt(90) && x + 5 < map->getWidth()-1) {
 			// then, for a random length
@@ -116,7 +117,7 @@ void Overworld::randomizeBlocks() {
 
 void Overworld::randomizeSlopes() {
 	// 1/2 odd of having a slope in the level
-	//if (Random::dice(1./2)) {
+	if (Random::dice(1./2)) {
 		double maxHeight = abs(Random::gaussian(4, 0.75));
 		int length = abs(Random::gaussian(10, 3));
 		int xStart = Random::uniform(SIGN_POS + 2, map->getWidth() - FLAG_POS - length);
@@ -171,8 +172,23 @@ void Overworld::randomizeSlopes() {
 				}
 			}
 		}
-	//}
+	}
 }
 
-// lambda
-// [&]() { xxx return false; return true; }()
+void Overworld::randomizeEnemies() {
+	// for all map length
+	for (int x = SIGN_POS + 2; x < map->getWidth() - FLAG_POS - 2; x++) {
+		// if random noise at this point is greater than 90% other points
+		if (p->noise(x, Random::uniform(0, (int)MAX_Y), MAX_Z) > p->getStatsAt(95)) {
+			int y = map->getGroundHeight(x);
+			if (y > 0)
+				map->setTile(x, y, Random::uniform(Tiles::Enemies::FIRST_ENEMY, Tiles::Enemies::INVALID_ENEMY - 1));
+			else
+				map->setTile(x, abs(Random::gaussian(3, 1)), Random::uniform(Tiles::Enemies::FLYING_ENEMIES, Tiles::Enemies::INVALID_ENEMY - 1));
+			x += Random::gaussian(2, 0.7);
+		}
+	}
+}
+
+
+

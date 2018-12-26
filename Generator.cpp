@@ -12,8 +12,3 @@ Generator::Generator(Map *map, double xMax, double yMax, double zMax) {
 	p = new Perlin(xMax, yMax, zMax);
 }
 
-// Returns a random percentage
-double Generator::percent() {
-	return (double)rand() / RAND_MAX;
-}
-
