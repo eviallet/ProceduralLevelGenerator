@@ -1,8 +1,12 @@
 ﻿#ifndef TILE_H
 #define TILE_H
 
+#define QT
+
 #include <iostream>
-#include <qpixmap.h>
+#ifdef QT
+	#include <qpixmap.h>
+#endif
 
 namespace Tiles {
 	enum Types {
@@ -94,14 +98,25 @@ public:
 	Tile(int type = Tiles::NONE);
 	void setType(int type);
 	int getType() const;
-	QPixmap getIcon(int mapType) const;
 	bool isGround();
 	static bool isGround(int type);
 	bool isStandable();
+	#ifdef QT
+		QPixmap getIcon(int mapType) const;
+	#endif
+	operator int(){
+		return _type;
+	}
 private:
 	int _type;
 };
 
+inline bool operator==(const Tile &left, const int &right) {
+	return left.getType() == right || (Tile::isGround(left.getType()) && Tile::isGround(right));
+}
+inline bool operator!=(const Tile &left, const int &right) {
+	return !operator==(left, right);
+}
 inline bool operator==(const Tile &left, const Tile &right) {
 	return left.getType() == right.getType() || (Tile::isGround(left.getType()) && Tile::isGround(right.getType()));
 }

@@ -1,4 +1,4 @@
-#include "Tile.h"
+#include "tile.h"
 
 
 Tile::Tile(int type) {
@@ -25,6 +25,7 @@ bool Tile::isStandable() {
 	return _type == Tiles::Ground::UP || _type == Tiles::Terrain::PLATFORM || Tiles::Terrain::PLATFORM_UP_RIGHT || Tiles::Terrain::PLATFORM_UP_LEFT;
 }
 
+#ifdef QT
 QPixmap Tile::getIcon(int mapType) const {
 	QString mapTypeStr = "";
 	int rotationDir = -1;
@@ -151,4 +152,5 @@ QPixmap Tile::getIcon(int mapType) const {
 	else
 		return icon;
 }
+#endif
 

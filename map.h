@@ -11,6 +11,7 @@ public:
     Tile getTile(int row, int col) const;
     int getWidth() const;
     int getHeight() const;
+	int ** toIntArray() const;
 	int getGroundHeight(int x);
 	int getFreeTileHeight(int x);
 	int count(int type);

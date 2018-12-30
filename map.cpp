@@ -29,6 +29,17 @@ int Map::getHeight() const {
     return _height;
 }
 
+int** Map::toIntArray() const {
+	int **map = new int*[_height];
+	for (int i = 0; i < _height; i++)
+		map[i] = new int[_width];
+
+	for (int y = 0; y < _height; y++)
+		for (int x = 0; x < _width; x++)
+			map[y][x] = static_cast<int>(_map[y][x]);
+	return map;
+}
+
 /*
 	Run through the column starting from 0 and return the first non-ground tile
 */
