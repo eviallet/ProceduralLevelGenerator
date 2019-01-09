@@ -192,7 +192,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Generator.cpp" />
-    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -204,7 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Generator.h" />
-    <ClInclude Include="Interface.h" />
     <ClInclude Include="Perlin.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Underground.h" />
